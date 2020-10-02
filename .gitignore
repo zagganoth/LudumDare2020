@@ -1,0 +1,10 @@
+obj/*
+Temp/*
+*.suo
+*.user
+*.meta
+.git
+.vs
+Library/*
+Assets/External/*
+Packages/**/*
