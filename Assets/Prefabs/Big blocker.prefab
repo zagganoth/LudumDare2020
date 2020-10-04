@@ -113,6 +113,8 @@ MonoBehaviour:
   toAvoid: 0
   moveSpeed: 5
   dimensions: {x: 30, y: 30, z: 0}
+  moveVertical: 0
+  moveHorizontal: 0
 --- !u!54 &795391001979945390
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,5 +129,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0

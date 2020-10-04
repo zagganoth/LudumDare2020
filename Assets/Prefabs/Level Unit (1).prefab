@@ -208,11 +208,13 @@ MonoBehaviour:
   - {fileID: 1587326934337412265, guid: 09726523c2aaf794f9795ef271254a0c, type: 3}
   - {fileID: 795391001979945385, guid: 46b1e7b47b5349643a522c985ee52e40, type: 3}
   - {fileID: 1065618177341058894, guid: 6e25b0caddce7dd48adb65ed6a0d37f6, type: 3}
+  - {fileID: 5710249098614524839, guid: 8dcacbb4fadc414499a0fe6631417faa, type: 3}
   lootPrefab: {fileID: 4371777751785754836, guid: b9b56dbbb7298ec48b8833c22353e986,
     type: 3}
   powerupPrefabs:
   - {fileID: 8853043293940622121, guid: 2a8c62b024ad55143859a7e5d22fd581, type: 3}
   - {fileID: 5999709104733512519, guid: 4ec91c0d8cf936c4d897bfb1151f5514, type: 3}
+  - {fileID: 6692551483215234318, guid: 011e16fb23c5fcc468b1bfb9574e2baf, type: 3}
   numCoinsToSpawn: 13
 --- !u!1 &7680700341674827871
 GameObject:

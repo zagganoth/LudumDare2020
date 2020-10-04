@@ -53,7 +53,7 @@ public class ObstacleSpawner : MonoBehaviour
             float xRand = UnityEngine.Random.Range(transform.position.x - (dimensions.x / 2) + borderDistance, transform.position.x + (dimensions.x / 2) - borderDistance);
             float yRand = UnityEngine.Random.Range(transform.position.y - (dimensions.y / 2) + borderDistance, transform.position.y + (dimensions.y / 2) - borderDistance);
             float zRand = UnityEngine.Random.Range(transform.position.z - (dimensions.z / 2) + borderDistance, transform.position.z + (dimensions.z / 2) - borderDistance);
-            spawnedPrefabs.Add(Instantiate(obstaclePrefabs[prefabIndex].gameObject, new Vector3(xRand, yRand, zRand), obstaclePrefabs[prefabIndex].transform.rotation));
+            spawnedPrefabs.Add(Instantiate(obstaclePrefabs[prefabIndex].gameObject, new Vector3(xRand, yRand, zRand), obstaclePrefabs[prefabIndex].transform.rotation * transform.rotation));
             spawnedCount++;
         }
         spawnedCount = 0;

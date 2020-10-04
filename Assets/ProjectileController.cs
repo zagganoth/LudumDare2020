@@ -22,14 +22,22 @@ public class ProjectileController : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
-        Destroy(this.gameObject);
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("Triggered!");
+        Debug.Log(collision.gameObject.tag);
         if (!collision.gameObject.CompareTag("KeepAlive") && !collision.gameObject.CompareTag("Player"))
         {
             Destroy(collision.gameObject);
         }
-        Destroy(this.gameObject);
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

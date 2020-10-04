@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public List<int> maxConditionsPerLevel;
     public int coinsCollected;
+
+    public bool playerInvulnerable;
     // Start is called before the first frame update
     void Awake()
     {
@@ -150,8 +152,20 @@ public class GameManager : MonoBehaviour
         {
             player.startingFlySpeed -= 0.1f;
         }
+        else if(tag.Equals("invulnerable"))
+        {
+            playerInvulnerable = true;
+            player.SetInvulnerable();
+            StartCoroutine(endInvulnerable());
+        }
         increaseGoalAmount(tag);
         onCollect?.Invoke(this, new OnCollectEventArgs { tag = tag});
+    }
+    public IEnumerator endInvulnerable()
+    {
+        yield return new WaitForSeconds(5f);
+        playerInvulnerable = false;
+        player.SetVulnerable();
     }
     public void fireRespawnEvent(bool successful = false)
     {

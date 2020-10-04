@@ -22,7 +22,14 @@ public class PlayerController : MonoBehaviour
     public GameObject particles;
     [SerializeField]
     private GameObject projectilePrefab;
-
+    [SerializeField]
+    public float flyAcceleration;
+    public Material defaultMaterial;
+    [SerializeField]
+    public Material invulnerableMaterial;
+    private MeshRenderer m;
+    [SerializeField]
+    CameraManager mainCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +40,8 @@ public class PlayerController : MonoBehaviour
 
         GameManager.instance.onRespawn += respawn;
         GameManager.instance.onLevelIncrease += increaseFlySpeed;
-
-
+        m = GetComponent<MeshRenderer>();
+        defaultMaterial = m.material;
     }
 
     private void increaseFlySpeed(object sender, EventArgs e)
@@ -44,7 +51,15 @@ public class PlayerController : MonoBehaviour
         breakSpeed = flySpeed * 0.5f;
     }
     
+    public void SetInvulnerable()
+    {
+        m.material = invulnerableMaterial;
+    }
 
+    public void SetVulnerable()
+    {
+        m.material = defaultMaterial;
+    }
     private void respawn(object sender, EventArgs e)
     {
         transform.position = spawnPosition;
@@ -59,25 +74,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(new Vector3(0,moveSpeed, 0), Space.World);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Translate(new Vector3(moveSpeed, 0, 0), Space.World);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(new Vector3(0,-moveSpeed, 0), Space.World);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Translate(new Vector3(-moveSpeed, 0, 0), Space.World);
-        }
+        float horizontalSpeed = Input.GetAxis("Horizontal");
+        float verticalSpeed = Input.GetAxis("Vertical");
+        transform.Translate(new Vector3(0, verticalSpeed * moveSpeed, 0), Space.World);
+        transform.Translate(transform.forward * flySpeed);
+        transform.RotateAround(transform.position, Vector3.up, 180 * horizontalSpeed * Time.deltaTime);
+        mainCamera.rotate(horizontalSpeed);
         if(Input.GetKey(KeyCode.RightShift))
         {
-            flySpeed = startingFlySpeed + boostSpeed;
+            if (flySpeed < startingFlySpeed + boostSpeed)
+            {
+                flySpeed += flyAcceleration;
+            }
             particles.SetActive(true);
         }
         else if (Input.GetKey(KeyCode.RightControl))
@@ -86,22 +94,24 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            flySpeed = startingFlySpeed;
+            if (flySpeed > startingFlySpeed)
+            {
+                flySpeed -= flyAcceleration;
+            }
             particles.SetActive(false);
         }
         if (Input.GetMouseButtonDown(0)) 
         {
-            GameObject g = Instantiate(projectilePrefab, transform.position + new Vector3(0, 0, -10), projectilePrefab.transform.rotation);
+            Debug.Log("Creating bullet");
+            GameObject g = Instantiate(projectilePrefab, transform.position + transform.forward, projectilePrefab.transform.rotation);
             Rigidbody rb2 = g.GetComponent<Rigidbody>();
-            rb2.velocity = new Vector3(0, 0, -300f);
+            rb2.velocity = transform.up * 300f;
         }
 
         if(Input.GetKey(KeyCode.RightControl))
         {
             transform.RotateAround(transform.position, Vector3.forward, 180 * Time.deltaTime);
         }
-
-        transform.position += new Vector3(0, 0, -flySpeed);
     }
 
     public void OnMove(InputAction.CallbackContext context)

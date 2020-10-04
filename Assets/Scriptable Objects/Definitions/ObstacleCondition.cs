@@ -12,4 +12,6 @@ public class ObstacleCondition : GoalCondition
     public bool collect;
     [SerializeField]
     public bool avoid;
+    [SerializeField]
+    public bool shoot;
 }

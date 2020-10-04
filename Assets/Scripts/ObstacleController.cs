@@ -10,12 +10,13 @@ public class ObstacleController : MonoBehaviour
     Goal goalStance;
     public bool toCollect;
     public bool toAvoid;
+    public bool toShoot;
 
     private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            if (toAvoid)
+            if (toAvoid && !GameManager.instance.playerInvulnerable)
             {
                 GameManager.instance.fireRespawnEvent();
             }
@@ -24,6 +25,11 @@ public class ObstacleController : MonoBehaviour
                 GameManager.instance.fireCollectEvent(curTag);
                 Destroy(this.gameObject);
             }
+        }
+        else if(collision.gameObject.CompareTag("projectile") && toShoot)
+        {
+            GameManager.instance.fireCollectEvent(curTag);
+            Destroy(this.gameObject);
         }
     }
     // Start is called before the first frame update
@@ -54,6 +60,10 @@ public class ObstacleController : MonoBehaviour
                     {
                         toAvoid = false;
                         toCollect = true;
+                    }
+                    if(c.shoot)
+                    {
+                        toShoot = true;
                     }
                 }
             }
