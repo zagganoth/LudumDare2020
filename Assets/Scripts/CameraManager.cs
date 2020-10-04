@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputManager : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
+    [SerializeField]
+    PlayerController player;
+    [SerializeField]
+    Vector3 offset;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +17,6 @@ public class PlayerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position = player.transform.position + offset;
     }
 }

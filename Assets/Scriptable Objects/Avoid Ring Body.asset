@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c951b27c1289144a877f4cf71e080a, type: 3}
+  m_Name: Avoid Ring Body
+  m_EditorClassIdentifier: 
+  minLevel: 0
+  minRequiredAmount: 0
+  maxRequiredAmount: 0
+  incompatibleConditions: []
+  description: 
+  hidden: 1
+  requiredConditions: []
+  desiredTag: Ring
+  collect: 0
+  avoid: 1
