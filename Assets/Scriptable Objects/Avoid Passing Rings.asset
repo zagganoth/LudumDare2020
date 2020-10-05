@@ -23,7 +23,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 26a362a481b5b064f99a984065570efa, type: 2}
   - {fileID: 11400000, guid: f4f27b79204b08842851323fce1e771b, type: 2}
   - {fileID: 11400000, guid: 31f642a6e4fc83a4aa597050228e232d, type: 2}
-  - {fileID: 11400000, guid: 346f29b55bcb34347afe7469a6a2dd53, type: 2}
   desiredTag: RingPass
   collect: 0
   avoid: 1

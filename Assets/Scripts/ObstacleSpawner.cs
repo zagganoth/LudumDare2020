@@ -86,7 +86,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             
             yield return new WaitForSeconds(0.5f);
-            int randNum = UnityEngine.Random.Range(1, GameManager.instance.currentLevel * 2);
+            int randNum = UnityEngine.Random.Range(1, Math.Max(1,Mathf.FloorToInt(Mathf.Sqrt(GameManager.instance.currentLevel * 2))));
             for (int i = 0; i < randNum; i++)
             {
                 float xRand = UnityEngine.Random.Range(transform.position.x - (dimensions.x / 2) + borderDistance, transform.position.x + (dimensions.x / 2) - borderDistance);
@@ -101,7 +101,8 @@ public class ObstacleSpawner : MonoBehaviour
     private void SpawnPrefabs()
     {
         int spawnedCount = 0;
-        while(spawnedCount < maxSpawnAmount)
+        int numToSpawn = UnityEngine.Random.Range(1, Mathf.FloorToInt(Mathf.Sqrt(maxSpawnAmount + GameManager.instance.currentLevel)));
+        while(spawnedCount < numToSpawn)
         {
             int prefabIndex = UnityEngine.Random.Range(0, obstaclePrefabs.Count);
             if(obstaclePrefabs[prefabIndex].minLevel > GameManager.instance.currentLevel)

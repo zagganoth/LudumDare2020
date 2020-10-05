@@ -205,9 +205,13 @@ public class GameManager : MonoBehaviour
                 GenerateNewGoal();
                 SceneManager.LoadScene(2);
             }
-            else
+            else if(!stillAlive)
             {
                 ResetGoal();
+            }
+            else if(stillAlive)
+            {
+                scoreMultiplier = 1;
             }
         }
         onRespawn?.Invoke(this, EventArgs.Empty);
