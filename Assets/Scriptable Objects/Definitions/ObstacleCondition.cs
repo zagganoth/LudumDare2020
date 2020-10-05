@@ -14,4 +14,6 @@ public class ObstacleCondition : GoalCondition
     public bool avoid;
     [SerializeField]
     public bool shoot;
+    [SerializeField]
+    public bool exactly;
 }

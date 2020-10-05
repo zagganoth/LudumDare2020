@@ -21,23 +21,81 @@ public class ObstacleSpawner : MonoBehaviour
     PlayerController playerRef;
     [SerializeField]
     int numCoinsToSpawn;
+    List<MeshRenderer> childRenderers;
+    private Material defaultMaterial;
+    [SerializeField]
+    private Material asteroidMaterial;
+    private bool asteroidUnit = true;
+    [SerializeField]
+    GameObject asteroidPrefab;
     // Start is called before the first frame update
     void Start()
     {
         spawnedPrefabs = new List<GameObject>();
         playerRef = GameObject.FindObjectOfType<PlayerController>();
         GameManager.instance.onRespawn += resetObstacles;
+        childRenderers = new List<MeshRenderer>();
+        var cComps = GetComponentsInChildren<MeshRenderer>();
+        foreach(var comp in cComps)
+        {
+            if (comp.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+            {
+                childRenderers.Add(comp);
+            }
+        }
+        defaultMaterial = childRenderers[0].material;
+        
         SpawnPrefabs();
     }
 
     private void resetObstacles(object sender, EventArgs e)
     {
+        if(UnityEngine.Random.Range(0,64) == 1)
+        {
+            asteroidUnit = true;
+        }
+        else
+        {
+            asteroidUnit = false;
+        }
         foreach(var prefab in spawnedPrefabs)
         {
             Destroy(prefab);
         }
         spawnedPrefabs = new List<GameObject>();
-        SpawnPrefabs();
+        if (!asteroidUnit)
+        {
+            foreach(var render in childRenderers)
+            {
+                render.material = defaultMaterial;
+            }
+            SpawnPrefabs();
+        } 
+        else
+        {
+            foreach(var render in childRenderers)
+            {
+                render.material = asteroidMaterial;
+            }
+            StartCoroutine(SpawnAsteroids());
+        }
+    }
+    IEnumerator SpawnAsteroids()
+    {
+        while(asteroidUnit)
+        {
+            
+            yield return new WaitForSeconds(0.5f);
+            int randNum = UnityEngine.Random.Range(1, GameManager.instance.currentLevel * 2);
+            for (int i = 0; i < randNum; i++)
+            {
+                float xRand = UnityEngine.Random.Range(transform.position.x - (dimensions.x / 2) + borderDistance, transform.position.x + (dimensions.x / 2) - borderDistance);
+                float yRand = UnityEngine.Random.Range(transform.position.y + borderDistance, transform.position.y + (dimensions.y / 2) - borderDistance);
+                float zRand = UnityEngine.Random.Range(transform.position.z - (dimensions.z / 2) + borderDistance, transform.position.z + (dimensions.z / 2) - borderDistance);
+
+                spawnedPrefabs.Add(Instantiate(asteroidPrefab, new Vector3(xRand, yRand, zRand), asteroidPrefab.transform.rotation));
+            }
+        }
     }
 
     private void SpawnPrefabs()
@@ -62,7 +120,7 @@ public class ObstacleSpawner : MonoBehaviour
             float xRand = UnityEngine.Random.Range(transform.position.x - (dimensions.x / 2) + borderDistance, transform.position.x + (dimensions.x / 2) - borderDistance);
             float yRand = UnityEngine.Random.Range(transform.position.y - (dimensions.y / 2) + borderDistance, transform.position.y + (dimensions.y / 2) - borderDistance);
             float zRand = UnityEngine.Random.Range(transform.position.z - (dimensions.z / 2) + borderDistance, transform.position.z + (dimensions.z / 2) - borderDistance);
-            spawnedPrefabs.Add(Instantiate(lootPrefab, new Vector3(xRand, yRand, zRand), lootPrefab.transform.rotation));
+            spawnedPrefabs.Add(Instantiate(lootPrefab, new Vector3(xRand, yRand, zRand), lootPrefab.transform.rotation * transform.rotation));
             spawnedCount++;
         }
         if (UnityEngine.Random.Range(0,8) == 1)

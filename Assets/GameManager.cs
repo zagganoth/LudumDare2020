@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -10,12 +11,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public event EventHandler onRespawn;
     public event EventHandler onLevelIncrease;
+    public event EventHandler onDie;
     public event EventHandler<OnCollectEventArgs> onCollect;
     public List<ObstacleSpawner> spawners;
     public int currentLevel;
     public float scoreMultiplier;
     public float scoreBuffer;
     public int score;
+    [SerializeField]
+    public int currentLives;
     public class OnCollectEventArgs : EventArgs
     {
         public string tag;
@@ -30,7 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public List<int> maxConditionsPerLevel;
     public int coinsCollected;
-
+    private int baseLives;
     public bool playerInvulnerable;
     // Start is called before the first frame update
     void Awake()
@@ -38,6 +42,7 @@ public class GameManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -48,6 +53,7 @@ public class GameManager : MonoBehaviour
         scoreMultiplier = 1;
         score = 0;
         scoreBuffer = 0;
+        baseLives = currentLives;
     }
     private void Start()
     {
@@ -62,6 +68,7 @@ public class GameManager : MonoBehaviour
         currentLevel++;
         score += Mathf.RoundToInt(scoreBuffer);
         scoreBuffer = 0;
+        currentLives = baseLives;
         GenerateNewGoal();
     }
 
@@ -85,15 +92,13 @@ public class GameManager : MonoBehaviour
             //max_try times, then give up
             while((incompatibleConditions.Contains(randCond) || activeConditions.Contains(randCond) || randCond.minLevel > currentLevel) && curTries < maxTries)
             {
-                Debug.Log("Rerolling condition");
                 randCond = conditionsPool[UnityEngine.Random.Range(0, Math.Min(maxConditionsPerLevel[maxLevelIndex], conditionsPool.Count))];
                 curTries++;
             }
-            Debug.Log("Cur tries: " + curTries);
             if (curTries < maxTries)
             {
                 curCondition = new ActiveGoalCondition();
-                curCondition.Init(randCond);
+                curCondition.Init(randCond, currentLevel);
                 foreach (var condition in curCondition.cond.incompatibleConditions)
                 {
                     incompatibleConditions.Add(condition);
@@ -115,13 +120,14 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private void ResetGoals() { 
+    private void ResetGoal() { 
         foreach(var cond in currentGoal.winConditions)
         {
             cond.Reset();
         }
         coinsCollected = 0;
         scoreMultiplier = 1;
+        scoreBuffer = 0;
     }
     private void increaseGoalAmount(string tag)
     {
@@ -131,6 +137,11 @@ public class GameManager : MonoBehaviour
             {
                 ObstacleCondition c = curCondition.cond as ObstacleCondition;
                 if (tag.Equals(c.desiredTag)) curCondition.currentAmount++;
+                if(c.exactly && curCondition.currentAmount > curCondition.requiredAmount)
+                {
+                    fireRespawnEvent();
+                    break;
+                }
             }
         }
     }
@@ -167,19 +178,40 @@ public class GameManager : MonoBehaviour
         playerInvulnerable = false;
         player.SetVulnerable();
     }
-    public void fireRespawnEvent(bool successful = false)
+    public void fireRespawnEvent(bool stillAlive = false)
     {
 
-        if (successful && currentGoal.complete())
+        if (stillAlive && currentGoal.complete())
         {
             increaseLevel();
             onLevelIncrease?.Invoke(this, EventArgs.Empty);
         }
         else
         {
-            ResetGoals();
+            if (!stillAlive)
+            {
+                onDie?.Invoke(this, EventArgs.Empty);
+                currentLives--;
+            }
+            if (currentLives == 0)
+            {
+
+                currentLevel = 1;
+                score = 0;
+                scoreBuffer = 0;
+                scoreMultiplier = 1;
+                coinsCollected = 0;
+                currentLives = baseLives;
+                GenerateNewGoal();
+                SceneManager.LoadScene(2);
+            }
+            else
+            {
+                ResetGoal();
+            }
         }
         onRespawn?.Invoke(this, EventArgs.Empty);
+        
     }
 
     // Update is called once per frame

@@ -180,7 +180,7 @@ Transform:
   m_GameObject: {fileID: 7680700341581648423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 10, z: -15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 7680700341940178521}
   - {fileID: 7680700341674827856}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dimensions: {x: 60, y: 60, z: 60}
   borderDistance: 2
-  maxSpawnAmount: 5
+  maxSpawnAmount: 1
   obstaclePrefabs:
   - {fileID: 1587326934337412265, guid: 09726523c2aaf794f9795ef271254a0c, type: 3}
   - {fileID: 795391001979945385, guid: 46b1e7b47b5349643a522c985ee52e40, type: 3}
@@ -215,7 +215,10 @@ MonoBehaviour:
   - {fileID: 8853043293940622121, guid: 2a8c62b024ad55143859a7e5d22fd581, type: 3}
   - {fileID: 5999709104733512519, guid: 4ec91c0d8cf936c4d897bfb1151f5514, type: 3}
   - {fileID: 6692551483215234318, guid: 011e16fb23c5fcc468b1bfb9574e2baf, type: 3}
-  numCoinsToSpawn: 13
+  numCoinsToSpawn: 2
+  asteroidMaterial: {fileID: 2100000, guid: acaa46a016060ac45a1e003d3aa1cb45, type: 2}
+  asteroidPrefab: {fileID: 4424099208890666461, guid: 25a33bcbc22667940a4ca6ce5302e756,
+    type: 3}
 --- !u!1 &7680700341674827871
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class ActiveGoalCondition
     public int currentAmount;
     public HashSet<GoalCondition> incompatibleSet;
     public int requiredAmount;
-    public void Init(GoalCondition condition)
+    public void Init(GoalCondition condition, int level)
     {
         cond = condition;
         incompatibleSet = new HashSet<GoalCondition>();
@@ -40,7 +40,7 @@ public class ActiveGoalCondition
         {
             incompatibleSet.Add(incCond);
         }
-        requiredAmount = UnityEngine.Random.Range(cond.minRequiredAmount, cond.maxRequiredAmount);
+        requiredAmount = UnityEngine.Random.Range(cond.minRequiredAmount, cond.maxRequiredAmount) + (level > 1 ? Mathf.FloorToInt(Mathf.Sqrt(level)) : 0);
     }
     public void Reset()
     {

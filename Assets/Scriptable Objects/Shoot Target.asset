@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c951b27c1289144a877f4cf71e080a, type: 3}
   m_Name: Shoot Target
   m_EditorClassIdentifier: 
-  minLevel: 2
+  minLevel: 4
   minRequiredAmount: 1
-  maxRequiredAmount: 2
+  maxRequiredAmount: 3
   incompatibleConditions: []
   description: 'Shoot Targets: {0}/{1}'
   hidden: 0
   requiredConditions:
   - {fileID: 11400000, guid: f4f27b79204b08842851323fce1e771b, type: 2}
   - {fileID: 11400000, guid: 26a362a481b5b064f99a984065570efa, type: 2}
+  - {fileID: 11400000, guid: 31f642a6e4fc83a4aa597050228e232d, type: 2}
   desiredTag: target
   collect: 0
   avoid: 0
   shoot: 1
+  exactly: 0

@@ -14,4 +14,8 @@ public class PowerUpController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    private void Update()
+    {
+        transform.RotateAround(transform.position, Vector3.up, 180 * Time.deltaTime);
+    }
 }

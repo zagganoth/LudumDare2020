@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour
 {
+    PlayerController player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindObjectOfType<PlayerController>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -21,6 +22,6 @@ public class CoinController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.RotateAround(transform.position, Vector3.up, 180 * Time.deltaTime);
     }
 }

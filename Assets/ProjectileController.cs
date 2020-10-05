@@ -29,8 +29,6 @@ public class ProjectileController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Triggered!");
-        Debug.Log(collision.gameObject.tag);
         if (!collision.gameObject.CompareTag("KeepAlive") && !collision.gameObject.CompareTag("Player"))
         {
             Destroy(collision.gameObject);

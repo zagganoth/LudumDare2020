@@ -12,7 +12,7 @@ public class ObstacleController : MonoBehaviour
     public bool toAvoid;
     public bool toShoot;
 
-    private void OnTriggerEnter(Collider collision)
+    protected virtual void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
@@ -36,6 +36,9 @@ public class ObstacleController : MonoBehaviour
     void Start()
     {
         goalStance = GameManager.instance.currentGoal;
+        toShoot = false;
+        toAvoid = false;
+        toCollect = false;
         rb = GetComponent<Rigidbody>();
         determineBehaviour();
         childStart();
@@ -43,6 +46,7 @@ public class ObstacleController : MonoBehaviour
 
     private void determineBehaviour()
     {
+
         goalStance = GameManager.instance.currentGoal;
         foreach(var condition in goalStance.winConditions)
         {
@@ -67,6 +71,9 @@ public class ObstacleController : MonoBehaviour
                     }
                 }
             }
+        }
+        if (toShoot) {
+            gameObject.tag = "KeepAlive";
         }
     }
 

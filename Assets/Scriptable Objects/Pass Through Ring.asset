@@ -14,14 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minLevel: 2
   minRequiredAmount: 1
-  maxRequiredAmount: 3
+  maxRequiredAmount: 4
   incompatibleConditions:
   - {fileID: 11400000, guid: 3b4d38cdf04288d4eba59d8a37cccd11, type: 2}
-  description: Pass through rings {0}/{1}
+  description: Go through Rings {0}/{1}
   hidden: 0
   requiredConditions:
   - {fileID: 11400000, guid: 31f642a6e4fc83a4aa597050228e232d, type: 2}
   - {fileID: 11400000, guid: 26a362a481b5b064f99a984065570efa, type: 2}
+  - {fileID: 11400000, guid: f4f27b79204b08842851323fce1e771b, type: 2}
+  - {fileID: 11400000, guid: 346f29b55bcb34347afe7469a6a2dd53, type: 2}
   desiredTag: RingPass
   collect: 1
   avoid: 0
+  shoot: 0
+  exactly: 0

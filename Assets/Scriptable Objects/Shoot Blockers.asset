@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c951b27c1289144a877f4cf71e080a, type: 3}
+  m_Name: Shoot Blockers
+  m_EditorClassIdentifier: 
+  minLevel: 2
+  minRequiredAmount: 1
+  maxRequiredAmount: 5
+  incompatibleConditions: []
+  description: 'Shoot Blockers: {0}/{1}'
+  hidden: 0
+  requiredConditions:
+  - {fileID: 11400000, guid: 26a362a481b5b064f99a984065570efa, type: 2}
+  - {fileID: 11400000, guid: f4f27b79204b08842851323fce1e771b, type: 2}
+  - {fileID: 11400000, guid: 31f642a6e4fc83a4aa597050228e232d, type: 2}
+  desiredTag: Blocker
+  collect: 0
+  avoid: 0
+  shoot: 1
+  exactly: 0

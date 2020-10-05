@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - KeepAlive
   - projectile
+  - Target
   layers:
   - Default
   - TransparentFX
