@@ -40,7 +40,7 @@ public class ActiveGoalCondition
         {
             incompatibleSet.Add(incCond);
         }
-        requiredAmount = UnityEngine.Random.Range(cond.minRequiredAmount, cond.maxRequiredAmount) + (level > 1 ? Mathf.FloorToInt(Mathf.Sqrt(level)) : 0);
+        requiredAmount = UnityEngine.Random.Range(cond.minRequiredAmount, cond.maxRequiredAmount) + (level > 1 ? (cond.maxRequiredAmount == 0 ? 0 : Mathf.FloorToInt(Mathf.Sqrt(level)))  : 0);
     }
     public void Reset()
     {

@@ -83,20 +83,17 @@ public class UITextController : MonoBehaviour
         /*t.text = "Lives: " + GameManager.instance.currentLives;
         t.text += "\nLoop: " + GameManager.instance.currentLevel;
         t.text += ", Score: " + GameManager.instance.score;*/
-        goals.text = "";
+        goals.text = "Goal: ";
         string tempGoals = "";
         foreach (var cond in GameManager.instance.currentGoal.winConditions)
         {
             if (cond.cond.hidden) continue;
-            tempGoals += " " + cond.GenerateDescription();
+            tempGoals += "" + cond.GenerateDescription();
         }
-        if(GameManager.instance.currentGoal.complete())
+        goals.text += tempGoals;
+        if (GameManager.instance.currentGoal.complete())
         {
-            goals.text += "All goals complete!";
-        }
-        else
-        {
-            goals.text += tempGoals;
+            goals.text += "\nGoal complete!";
         }
         
 

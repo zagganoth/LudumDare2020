@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
             {
 
                 currentLevel = 1;
-                score = 0;
+                //score = 0;
                 scoreBuffer = 0;
                 scoreMultiplier = 1;
                 coinsCollected = 0;

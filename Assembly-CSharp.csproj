@@ -76,6 +76,7 @@
     <Compile Include="Assets\Input\InputMaster.cs" />
     <Compile Include="Assets\PowerUpController.cs" />
     <Compile Include="Assets\ProjectileController.cs" />
+    <Compile Include="Assets\ScoreDisplay.cs" />
     <Compile Include="Assets\Scriptable Objects\Definitions\ObstacleCondition.cs" />
     <Compile Include="Assets\Scripts\BarrierController.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
