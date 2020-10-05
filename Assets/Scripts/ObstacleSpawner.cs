@@ -23,6 +23,7 @@ public class ObstacleSpawner : MonoBehaviour
     int numCoinsToSpawn;
     List<MeshRenderer> childRenderers;
     private Material defaultMaterial;
+	private Material defaultMaterial2;
     [SerializeField]
     private Material asteroidMaterial;
     private bool asteroidUnit = true;
@@ -44,6 +45,7 @@ public class ObstacleSpawner : MonoBehaviour
             }
         }
         defaultMaterial = childRenderers[0].material;
+		defaultMaterial2 = childRenderers[3].material;
         
         SpawnPrefabs();
     }
@@ -64,19 +66,30 @@ public class ObstacleSpawner : MonoBehaviour
         }
         spawnedPrefabs = new List<GameObject>();
         if (!asteroidUnit)
-        {
+        {	/*
             foreach(var render in childRenderers)
             {
                 render.material = defaultMaterial;
             }
+			*/
+			childRenderers[0].material = defaultMaterial;
+			childRenderers[1].material = defaultMaterial;
+			childRenderers[2].material = defaultMaterial2;
+			childRenderers[3].material = defaultMaterial2;
             SpawnPrefabs();
         } 
         else
         {
+			/*
             foreach(var render in childRenderers)
             {
                 render.material = asteroidMaterial;
             }
+			*/
+			childRenderers[0].material = asteroidMaterial;
+			childRenderers[1].material = asteroidMaterial;
+			childRenderers[2].material = defaultMaterial2;
+			childRenderers[3].material = defaultMaterial2;
             StartCoroutine(SpawnAsteroids());
         }
     }
