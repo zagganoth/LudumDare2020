@@ -63,11 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PathCreator\Core\Editor\Helper\MouseUtility.cs" />
-    <Compile Include="Assets\PathCreator\Core\Editor\Helper\PathHandle.cs" />
-    <Compile Include="Assets\PathCreator\Core\Editor\Helper\ScreenSpacePolyLine.cs" />
-    <Compile Include="Assets\PathCreator\Core\Editor\PathEditor.cs" />
-    <None Include="Assets\PathCreator\Core\Editor\PathCreatorEditor.asmdef" />
+    <Compile Include="Assets\External\PathCreator\Core\Editor\Helper\MouseUtility.cs" />
+    <Compile Include="Assets\External\PathCreator\Core\Editor\Helper\PathHandle.cs" />
+    <Compile Include="Assets\External\PathCreator\Core\Editor\Helper\ScreenSpacePolyLine.cs" />
+    <Compile Include="Assets\External\PathCreator\Core\Editor\PathEditor.cs" />
+    <None Include="Assets\External\PathCreator\Core\Editor\PathCreatorEditor.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
